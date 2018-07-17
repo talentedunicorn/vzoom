@@ -56,6 +56,7 @@ export default {
   :root {
     --space: 1.25rem;
     --image-size: 20rem;
+    --image-margin: calc(var(--space) * 4);
   }
 
   *,
@@ -96,5 +97,6 @@ export default {
   .zoomed img {
     max-width: unset;
     max-height: unset;
+    margin: var(--image-margin);
   }
 </style>
