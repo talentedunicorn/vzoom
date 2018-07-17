@@ -6,8 +6,8 @@
       </li>
     </ul>
 
-    <section v-if="current !== null" class="modal" @click="clearCurrent">
-      <img :src="images[current].url" :alt="images[current].title"/>
+    <section v-if="current !== null" class="modal" :class="{ zoomed: zoomed }" @click="clearCurrent">
+      <img :src="images[current].url" :alt="images[current].title" @click.stop="toggleZoomed"/>
     </section>
   </div>
 </template>
@@ -22,6 +22,7 @@ export default {
       x: 0,
       y: 0,
       current: null,
+      zoomed: false,
       images: [
         { title: "Bacon", url: "//picsum.photos/1200/800?image=34" },
         { title: "Juice", url: "//picsum.photos/1600/600?image=35" },
@@ -33,9 +34,13 @@ export default {
   methods: {
     setCurrent(item) {
       this.current = item
+      this.zoomed = false
     },
     clearCurrent() {
       this.current = null
+    },
+    toggleZoomed() {
+      this.zoomed = !this.zoomed
     },
     handleZoomed(e) {
       if(this.current) {
@@ -80,7 +85,16 @@ export default {
     display: grid;
     align-items: center;
     justify-content: center;
-    background: hsla(0, 0%, 20%, 0.8);
+    background: hsla(0, 0%, 10%, 0.9);
     overflow-y: auto;
+  }
+
+  .modal img {
+    max-height: 100%;
+  }
+
+  .zoomed img {
+    max-width: unset;
+    max-height: unset;
   }
 </style>
